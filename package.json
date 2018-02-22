@@ -1,0 +1,10 @@
+{
+	"name": "yuurei",
+	"version": "0.1.0",
+    "author": {
+        "email": "hello@kevinzha.ng"
+    },
+    "config": {
+        "posts_per_page": 5
+    }
+}
