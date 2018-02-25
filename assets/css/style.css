@@ -243,7 +243,13 @@ table {
 
 .post-header {
   margin: 0 0 35px;
-  text-align: center; }
+  text-align: left; }
+
+.page-header:after {
+  border-bottom: 1px dotted #303030;
+  content: "";
+  display: block;
+  width: 100px; }
 
 .post-title,
 .page-title {
@@ -251,7 +257,7 @@ table {
   font-family: "Sree Krushnadevaraya", serif;
   font-weight: 400;
   margin: 15px 0;
-  text-align: center; }
+  text-align: left; }
 
 .page-title {
   margin: 15px 40px; }
@@ -259,6 +265,7 @@ table {
 .post-date,
 .blog-description {
   color: #AEADAD;
+  font-style: italic;
   font-size: 0.6em;
   line-height: 1;
   margin: 15px 0 0; }
@@ -273,7 +280,7 @@ table {
     border-bottom: 1px dotted #303030;
     content: "";
     display: block;
-    margin: 40px auto 0;
+    margin: 40px 0 0;
     width: 100px; }
 
 .post-content a:hover {
@@ -339,7 +346,7 @@ table {
 /* ============================================================ */
 .post-list {
   list-style: none;
-  margin-top: 50px;
+  margin-top: 0px;
   padding: 0; }
 
 .post-stub {
