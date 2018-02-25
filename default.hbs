@@ -16,7 +16,7 @@
     <link rel="stylesheet" type="text/css" href="{{asset "css/normalize.css"}}" />
     <link rel="stylesheet" type="text/css" href="{{asset "css/nprogress.css"}}" />
     <link rel="stylesheet" type="text/css" href="{{asset "css/style.css"}}" />
-    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,600,700,300&subset=latin,cyrillic-ext,latin-ext,cyrillic" />
+    <link href="https://fonts.googleapis.com/css?family=Crimson+Text:400,400i|Sree+Krushnadevaraya" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" />
 
     {{! Ghost outputs important style and meta data with this tag }}
@@ -38,24 +38,24 @@
                 </div>
 
                 <ul class="site-nav">
-                    <!-- <li class="site-nav-item"><a class="js-ajax-link" title="{{@blog.title}}" href="{{@blog.url}}">Latest Post</a></li>
-                    <li class="site-nav-item"><a class="js-ajax-link js-show-index" title="{{@blog.title}}" href="{{@blog.url}}">Browse Posts</a></li> -->
+                    <li class="site-nav-item"><a class="js-ajax-link" title="{{@blog.title}}" href="{{@blog.url}}">Latest Post</a></li>
+                    <li class="site-nav-item"><a class="js-ajax-link js-show-index" title="{{@blog.title}}" href="{{@blog.url}}">Browse Posts</a></li>
 
                     {{navigation}}
 
-                    {{#if @blog.logo}}
+                    <!-- {{#if @blog.logo}}
                         <li class="site-nav-item"><a href="{{@blog.url}}/rss">RSS</a></li>
-                    {{/if}}
+                    {{/if}} -->
                 </ul>
             </div>
         </header>
-    
+
         <div id="ajax-container">
             {{{body}}}
         </div>
     </div>
 
-    <footer class="footer">
+    <!-- <footer class="footer">
         <div class="container">
             <div class="site-title-wrapper">
                 <h1 class="site-title"><a class="js-ajax-link" title="{{@blog.title}}" href="{{@blog.url}}">{{@blog.title}}</a></h1>
@@ -63,12 +63,12 @@
                 <a class="button-square button-jump-top js-jump-top" href="#"><i class="fa fa-angle-up"></i></a>
             </div>
         </div>
-    </footer>
+    </footer> -->
 
     {{! Ghost outputs important scripts and data with this tag }}
     {{ghost_foot}}
 
-    <script type="text/javascript">  
+    <script type="text/javascript">
     if (typeof jQuery == 'undefined') {
         document.write('<script type="text/javascript" src="{{asset "js/jquery-1.11.3.min.js"}}"></'+'script>');
     }
