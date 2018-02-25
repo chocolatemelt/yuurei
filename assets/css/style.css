@@ -142,10 +142,12 @@ table {
 /* General Appearance */
 /* ============================================================ */
 .container {
-  float: left;
   position: relative;
   width: 100%;
   max-width: 889px; }
+
+#ajax-container {
+  margin-left: 250px; }
 
 #wrapper {
   height: auto;
@@ -184,9 +186,10 @@ table {
 /* Site Header */
 /* ============================================================ */
 .site-header {
+  position: fixed;
   display: block;
-  float: left;
-  padding: 35px 0 0 35px;
+  top: 50px;
+  left: 50px;
   overflow: auto;
   text-align: center;
   text-transform: lowercase; }
@@ -236,7 +239,7 @@ table {
   display: none; }
 
 .post-container {
-  margin: 0 40px; }
+  margin: 0; }
 
 .post-header {
   margin: 0 0 35px;
@@ -335,10 +338,9 @@ table {
 /* Post Index */
 /* ============================================================ */
 .post-list {
-  border-top: 6px solid #303030;
   list-style: none;
-  margin: 80px 40px 0;
-  padding: 35px 0 0; }
+  margin-top: 50px;
+  padding: 0; }
 
 .post-stub {
   border-bottom: 1px dotted #303030;
@@ -513,9 +515,6 @@ table {
   hr {
     margin: 35px 0; }
 
-  .site-header {
-    padding-top: 60px; }
-
   .site-nav-item {
     display: block;
     margin: 15px 0; }
@@ -552,11 +551,6 @@ table {
     content: "";
     display: block; }
 
-  .post-list {
-    margin-top: 45px; }
-
-  .post-container,
-  .post-list,
   .author-profile {
     margin-right: 25px;
     margin-left: 25px; }
@@ -608,7 +602,6 @@ table {
     margin-top: 10px; }
 
   .post-container,
-  .post-list,
   .author-profile {
     margin-right: 15px;
     margin-left: 15px; }
