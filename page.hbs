@@ -3,10 +3,10 @@
 <div class="container">
     {{#post}}
         <article class="post-container {{post_class}}">
-            <header class="post-header">
+            <header class="post-header page-header">
                 <h1 class="post-title">{{title}}</h1>
 
-                <p class="blog-description">{{@blog.description}}</p>
+                <!-- <p class="blog-description">{{@blog.description}}</p> -->
             </header>
 
             <div class="post-content clearfix">
@@ -14,7 +14,7 @@
                     <img class="post-featured-image" src="{{img_url feature_image}}">
                 {{/if}}
 
-{{! No indention to prevent handlebars indenting <pre> tag content}}               
+{{! No indention to prevent handlebars indenting <pre> tag content}}
 {{{content}}}
 
                 {{#if tags}}
