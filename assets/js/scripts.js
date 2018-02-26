@@ -102,10 +102,10 @@ jQuery(function($) {
                 var curProt = currentState.url.split("/")[0];
                 url = curProt + "//" + urlNoProt;
             }
-            
+
             // If the requested url is not the current states url push
             // the new state and make the ajax call.
-            if (url !== currentState.url.replace(/\/$/, "")) {
+            if (url !== currentState.url) {
                 loading = true;
 
                 // Check if we need to show the post index after we've
@@ -135,8 +135,9 @@ jQuery(function($) {
 
                     $postIndex.fadeOut(300, function() {
                         $latestPost.fadeIn(300);
-                        NProgress.done();
                     });
+                    
+                    NProgress.done();
                 }
             }
         }
