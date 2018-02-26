@@ -35,12 +35,9 @@ h5 {
   font-size: 1.2em;
   margin-bottom: 10px; }
 
-/* this is a special tag that defines the index/issue */
+/* this is a special tag that defines the index/issue, so kill it */
 h6 {
-  display: block;
-  position: absolute;
-  font-size: 80px;
-  top: 160px; }
+  display: none; }
 
 p {
   line-height: 1.8;
@@ -147,7 +144,7 @@ table {
 .container {
   position: relative;
   width: 100%;
-  max-width: 889px; }
+  max-width: 800px; }
 
 #ajax-container {
   margin-left: 270px; }
@@ -239,6 +236,7 @@ table {
 /* Post */
 /* ============================================================ */
 #latest-post {
+  margin-top: 50px;
   display: none; }
 
 .post-container {
@@ -248,12 +246,14 @@ table {
   height: 333px;
   display: block;
   position: relative;
-  margin: 0;
+  margin: 0 0 50px;
   text-align: left; }
 
 .h6-index {
   display: block;
-  height: 110px;
+  font-family: "Playfair Display", serif;
+  font-size: 80px;
+  margin-bottom: 30px;
 }
 
 .post-header-left {
@@ -273,14 +273,11 @@ table {
 
 .post-featured-image {
   max-height: 283px;
-  margin: 0;
-}
+  margin: 0; }
 
-.page-header:after {
-  border-bottom: 1px dotted #303030;
-  content: "";
-  display: block;
-  width: 100px; }
+.index-featured-image {
+  width: initial;
+  margin: 0 0 50px; }
 
 .post-title,
 .page-title {
@@ -313,9 +310,6 @@ table {
     display: block;
     margin: 40px 0 0;
     width: 100px; }
-
-.post-content {
-  margin-top: 50px; }
 
 .post-content a:hover {
   border-bottom: 1px dotted #F03838;
@@ -555,10 +549,6 @@ table {
   .site-nav-item {
     display: block;
     margin: 15px 0; }
-
-  .post-header {
-    margin-bottom: 35px;
-    padding-bottom: 35px; }
 
   .post-title,
   .page-title,
