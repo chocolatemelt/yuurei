@@ -5,14 +5,14 @@ html, body {
   height: 100%; }
 
 body {
-  background: #F9F6F1;
+  background: #F6F6F6;
   color: #424242;
   font-family: "Crimson Text", serif;
   font-size: 16pt; }
 
 h1, h2, h3, h4, h5, h6 {
   font-weight: 400;
-  font-family: "Sree Krushnadevaraya", serif;
+  font-family: "Playfair Display", serif;
   margin-top: 0;
   margin-bottom: 35px;
   text-transform: none; }
@@ -35,9 +35,12 @@ h5 {
   font-size: 1.2em;
   margin-bottom: 10px; }
 
+/* this is a special tag that defines the index/issue */
 h6 {
-  font-size: 1em;
-  margin-bottom: 0; }
+  display: block;
+  position: absolute;
+  font-size: 80px;
+  top: 160px; }
 
 p {
   line-height: 1.8;
@@ -147,18 +150,18 @@ table {
   max-width: 889px; }
 
 #ajax-container {
-  margin-left: 250px; }
+  margin-left: 270px; }
 
 #wrapper {
   height: auto;
-  min-height: 100%;
+  /* min-height: 100%; */
   /* This must be the same as the height of the footer */
   margin-bottom: -265px; }
   #wrapper:after {
     content: "";
     display: block;
     /* This must be the same as the height of the footer */
-    height: 265px; }
+    height: 0px; }
 
 .button {
   background: #303030;
@@ -188,10 +191,10 @@ table {
 .site-header {
   position: fixed;
   display: block;
-  top: 50px;
-  left: 50px;
+  top: 0;
+  left: 0;
   overflow: auto;
-  text-align: center;
+  text-align: right;
   text-transform: lowercase; }
 
 .site-title-wrapper {
@@ -218,13 +221,13 @@ table {
 
 .site-nav {
   list-style: none;
-  margin: 35px 0px;
+  margin: 50px 0px;
   padding-left:	0px; }
 
 .site-nav-item {
   display: block;
   font-size: 1em;
-  margin: 15px 0px; }
+  margin: 25px 0px; }
   .site-nav-item a {
     color: #000;
     font-style: italic;
@@ -242,8 +245,36 @@ table {
   margin: 0; }
 
 .post-header {
-  margin: 0 0 35px;
+  height: 333px;
+  display: block;
+  position: relative;
+  margin: 0;
   text-align: left; }
+
+.h6-index {
+  display: block;
+  height: 110px;
+}
+
+.post-header-left {
+  display: block;
+  position: absolute;
+  width: 400px;
+  bottom: 0;
+  z-index: 1; }
+
+.post-header-right {
+  display: block;
+  position: absolute;
+  width: 400px;
+  right: 0;
+  bottom: 0;
+  z-index: -1; }
+
+.post-featured-image {
+  max-height: 283px;
+  margin: 0;
+}
 
 .page-header:after {
   border-bottom: 1px dotted #303030;
@@ -254,7 +285,8 @@ table {
 .post-title,
 .page-title {
   font-size: 2.5em;
-  font-family: "Sree Krushnadevaraya", serif;
+  line-height: 1em;
+  font-family: "Playfair Display", serif;
   font-weight: 400;
   margin: 15px 0;
   text-align: left; }
@@ -266,22 +298,24 @@ table {
 .blog-description {
   color: #AEADAD;
   font-style: italic;
-  font-size: 0.6em;
-  line-height: 1;
-  margin: 15px 0 0; }
+  font-size: 1em;
+  line-height: 1.2em;
+  margin: 0; }
   .post-date a,
   .blog-description a {
     color: #AEADAD; }
   .post-date a:hover,
   .blog-description a:hover {
     color: #F03838; }
-  .post-date:after,
   .blog-description:after {
     border-bottom: 1px dotted #303030;
     content: "";
     display: block;
     margin: 40px 0 0;
     width: 100px; }
+
+.post-content {
+  margin-top: 50px; }
 
 .post-content a:hover {
   border-bottom: 1px dotted #F03838;
@@ -398,17 +432,13 @@ table {
 /* Author */
 /* ============================================================ */
 .author-profile {
-  margin: 0 40px; }
-  .author-profile:after {
-    border-bottom: 1px dotted #303030;
-    content: "";
-    display: block;
-    margin: 40px auto 0;
-    width: 100px; }
+  display: block;
+  height: 300px;
+  font-family: "Crimson Text", serif;
+  margin: 0 0 50px; }
 
 .author-heading {
-  margin: 15px auto;
-  text-align: center;
+  text-align: left;
   width: 100%; }
 
 .author-avatar {
@@ -421,10 +451,8 @@ table {
 
 .author-name {
   display: inline;
-  font-size: 52px;
-  font-weight: 700;
-  text-align: center;
-  text-transform: uppercase;
+  font-size: 2.5em;
+  font-weight: 400;
   vertical-align: middle; }
 
 .author-meta {
@@ -433,10 +461,12 @@ table {
   font-weight: 600;
   line-height: 1;
   margin: 25px 0 0;
-  text-align: center;
+  text-align: left;
   text-transform: uppercase; }
+  .author-meta .fa {
+    width: 18px; }
   .author-meta span {
-    display: inline-block;
+    display: block;
     margin: 0 10px 8px; }
   .author-meta i {
     margin-right: 8px; }
@@ -446,8 +476,8 @@ table {
     color: #F03838; }
 
 .author-bio {
-  margin: 20px auto 0;
-  text-align: center;
+  margin: 25px auto 0;
+  text-align: left;
   max-width: 700px; }
 
 /* ============================================================ */
