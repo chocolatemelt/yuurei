@@ -240,11 +240,13 @@ table {
   display: none; }
 
 .post-container {
-  margin: 0; }
+  margin: 0;
+  margin-bottom: 5em; }
 
 .post-header {
   height: 333px;
-  display: block;
+  width: 100%;
+  display: table;
   position: relative;
   margin: 0 0 50px;
   text-align: left; }
@@ -257,22 +259,22 @@ table {
 }
 
 .post-header-left {
-  display: block;
+  display: table-cell;
   position: absolute;
   width: 400px;
   bottom: 0;
   z-index: 1; }
 
 .post-header-right {
-  display: block;
+  display: table-cell;
   position: absolute;
-  width: 400px;
+  height: 300px;
   right: 0;
   bottom: 0;
   z-index: -1; }
 
 .post-featured-image {
-  max-height: 283px;
+  max-height: 100%;
   margin: 0; }
 
 .index-featured-image {
