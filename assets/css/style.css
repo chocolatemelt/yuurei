@@ -252,6 +252,7 @@ table {
   text-align: left; }
 
 .h6-index {
+  color: #000;
   display: block;
   font-family: "Playfair Display", serif;
   font-size: 80px;
@@ -283,12 +284,14 @@ table {
 
 .post-title,
 .page-title {
+  color: #000;
   font-size: 2.5em;
   line-height: 1em;
   font-family: "Playfair Display", serif;
   font-weight: 400;
   margin: 15px 0;
-  text-align: left; }
+  text-align: left;
+  text-shadow: 2px 0px 0px rgba(253,253,253,0.8) }
 
 .page-title {
   margin: 15px 40px; }
