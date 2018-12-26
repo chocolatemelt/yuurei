@@ -1,4 +1,4 @@
 幽麗
 ==
 
-ghost theme via ghostwriter
+ghost 2.0 theme via ghostwriter
