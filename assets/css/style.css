@@ -273,6 +273,10 @@ table {
   bottom: 0;
   z-index: -1; }
 
+@media only screen and (max-width: 900px) {
+  .post-featured-image {
+    display: none; } }
+
 .post-featured-image {
   max-height: 100%;
   margin: 0; }
