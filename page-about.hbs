@@ -1,0 +1,25 @@
+{{!< default}}
+
+<div class="container">
+    {{#post}}
+        <article class="post-container {{post_class}}">
+            <header class="post-header page-header">
+                <div class="post-header-left">
+                    <h1 class="post-title">{{title}}</h1>
+                    <!-- <p class="post-date"></p>
+                    <p class="post-date"></p> -->
+                </div>
+                <div class="post-header-right">
+                {{#if feature_image}}
+                    <img class="post-featured-image" src="{{img_url feature_image}}">
+                {{/if}}
+                </div>
+            </header>
+
+            <div class="post-content clearfix">
+{{! No indention to prevent handlebars indenting <pre> tag content}}
+{{{content}}}
+            </div>
+        </article>
+    {{/post}}
+</div>
