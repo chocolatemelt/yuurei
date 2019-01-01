@@ -253,7 +253,7 @@ table {
 
 .h6-index {
   display: block;
-  font-family: "Playfair Display", serif;
+  font-family: "Playfair Display", 'ヒラギノ明朝 ProN', 'Hiragino Mincho ProN', '游明朝', '游明朝体', YuMincho, 'Yu Mincho', 'ＭＳ 明朝', 'MS Mincho', HiraMinProN-W3, 'TakaoEx明朝', TakaoExMincho, serif;
   font-size: 80px;
   margin: 15px 0;
 }
@@ -289,7 +289,7 @@ table {
 .page-title {
   font-size: 2.5em;
   line-height: 1em;
-  font-family: "Playfair Display", serif;
+  font-family: "Playfair Display", 'ヒラギノ明朝 ProN', 'Hiragino Mincho ProN', '游明朝', '游明朝体', YuMincho, 'Yu Mincho', 'ＭＳ 明朝', 'MS Mincho', HiraMinProN-W3, 'TakaoEx明朝', TakaoExMincho, serif;
   font-weight: 400;
   margin: 0;
   margin-top: 15px;
