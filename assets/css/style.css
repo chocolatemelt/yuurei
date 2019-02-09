@@ -261,7 +261,7 @@ table {
 .post-header-left {
   display: table-cell;
   position: absolute;
-  width: 400px;
+  width: 450px;
   bottom: 0;
   z-index: 1; }
 
