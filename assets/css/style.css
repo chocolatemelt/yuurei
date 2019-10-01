@@ -236,7 +236,7 @@ table {
 /* Post */
 /* ============================================================ */
 #latest-post {
-  margin-top: 50px;
+  /* margin-top: 50px; */
   display: none; }
 
 .post-container {
