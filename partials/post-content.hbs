@@ -2,14 +2,14 @@
     <header class="post-header">
         <div class="post-header-left">
             <h1 class="post-title">{{title}}</h1>
-            <div class="h6-index">{{excerpt words="1"}}</div>
-            <p class="post-date">published <time datetime="{{published_at}}">{{date format="MMMM Do YYYY"}}</time></p>
+            <p class="post-date">published <time datetime="{{published_at}}">{{date format="MMMM Do YYYY"}}</time> ·
+                {{reading_time}}</p>
             <p class="post-date">by {{authors}}</p>
         </div>
         <div class="post-header-right">
-        {{#if feature_image}}
+            {{#if feature_image}}
             <img class="post-featured-image" src="{{img_url feature_image}}">
-        {{/if}}
+            {{/if}}
         </div>
     </header>
 
@@ -19,7 +19,7 @@
 
     <footer class="post-footer clearfix">
         {{#if tags}}
-            <p class="post-tags">{{tags}}</p>
+        <p class="post-tags">{{tags}}</p>
         {{/if}}
 
         <!-- <div class="share">

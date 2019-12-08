@@ -1,13 +1,14 @@
 {
-	"name": "yuurei",
-	"version": "0.1.0",
-    "author": {
-        "email": "hello@kevinzha.ng"
-    },
-    "config": {
-        "posts_per_page": 5
-    },
-		"keywords": [
-			"ghost-theme"
-		]
+  "name": "yuurei",
+  "version": "1.0.3",
+  "author": {
+    "name": "kev",
+    "email": "w@nisemo.no"
+  },
+  "config": {
+    "posts_per_page": 10
+  },
+  "keywords": [
+    "ghost-theme"
+  ]
 }

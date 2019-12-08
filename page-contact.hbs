@@ -1,0 +1,33 @@
+{{!< default}}
+
+<div class="container">
+  {{#post}}
+  <article class="post-container {{post_class}}">
+    <header class="post-header page-header">
+      <div class="post-header-left">
+        <h1 class="post-title">{{title}}</h1>
+      </div>
+      <div class="post-header-right">
+        {{#if feature_image}}
+        <img class="post-featured-image" src="{{img_url feature_image}}">
+        {{/if}}
+      </div>
+    </header>
+
+    <div class="post-content clearfix">
+      <div id="contact-form">
+        <input id="contact-name" type="text" placeholder="name">
+        <br>
+        <input id="contact-response" type="text" placeholder="discord or email (optional)">
+        <br>
+        <textarea id="contact-msg" rows="4"></textarea>
+        <br>
+        <button id="contact-submit" type="button">send</button>
+      </div>
+      <div id="thanks">
+        <p>thanks!</p>
+      </div>
+    </div>
+  </article>
+  {{/post}}
+</div>

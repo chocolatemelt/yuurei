@@ -1,0 +1,32 @@
+{{!< default}}
+
+<div class="container">
+  <article class="post-container error-content">
+    <header class="post-header page-header">
+      <div class="post-header-left">
+        <h1 class="post-title">{{statusCode}}</h1>
+      </div>
+    </header>
+
+    <div class="post-content clearfix">
+      {{{message}}}
+      {{#if errorDetails}}
+      <section class="error-stack">
+        <h3>Theme errors</h3>
+        <ul class="error-stack-list">
+          {{#foreach errorDetails}}
+          <li>
+            <em class="error-stack-function">{{{rule}}}</em>
+
+            {{#foreach failures}}
+            <p><span class="error-stack-file">Ref: {{ref}}</span></p>
+            <p><span class="error-stack-file">Message: {{message}}</span></p>
+            {{/foreach}}
+          </li>
+          {{/foreach}}
+        </ul>
+      </section>
+      {{/if}}
+    </div>
+  </article>
+</div>

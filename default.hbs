@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     {{! Document Settings }}
     <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" />
@@ -17,11 +18,13 @@
     <link rel="stylesheet" type="text/css" href="{{asset "css/nprogress.css"}}" />
     <link rel="stylesheet" type="text/css" href="{{asset "css/style.css"}}" />
     <link href="https://fonts.googleapis.com/css?family=Crimson+Text:400,400i|Playfair+Display" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css"
+        href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" />
 
     {{! Ghost outputs important style and meta data with this tag }}
     {{ghost_head}}
 </head>
+
 <body class="{{body_class}}">
 
     <div id="wrapper">
@@ -29,11 +32,13 @@
             <div class="container">
                 <div class="site-title-wrapper">
                     {{#if @blog.logo}}
-                        <a class="site-logo js-ajax-link" title="{{@blog.title}}" href="{{@blog.url}}"><img src="{{@blog.logo}}" alt="{{@blog.title}}" /></a>
+                    <a class="site-logo js-ajax-link" title="{{@site.title}}" href="{{@site.url}}"><img
+                            src="{{@site.logo}}" alt="{{@site.title}}" /></a>
                     {{else}}
-                        <h1 class="site-title"><a class="js-ajax-link" title="{{@blog.title}}" href="{{@blog.url}}">{{@blog.title}}</a></h1>
+                    <h1 class="site-title"><a class="js-ajax-link" title="{{@site.title}}"
+                            href="{{@site.url}}">{{@site.title}}</a></h1>
 
-                        <a class="button-square" href="{{@blog.url}}/rss"><i class="fa fa-rss"></i></a>
+                    <a class="button-square" href="{{@site.url}}/rss"><i class="fa fa-rss"></i></a>
                     {{/if}}
                 </div>
 
@@ -41,25 +46,37 @@
                     {{navigation}}
 
                     {{!--
-                    <li class="site-nav-item"><a class="js-ajax-link js-show-index" title="{{@blog.title}}" href="{{@blog.url}}">Browse</a></li>
+                    <li class="site-nav-item"><a class="js-ajax-link js-show-index" title="{{@site.title}}" href="{{@site.url}}">Browse</a></li>
                     --}}
 
                     <!-- {{#if @blog.logo}}
-                        <li class="site-nav-item"><a href="{{@blog.url}}/rss">RSS</a></li>
+                        <li class="site-nav-item"><a href="{{@site.url}}/rss">RSS</a></li>
                     {{/if}} -->
+                    <li class="site-nav-item">
+                        <form class="gh-form">
+                            <input id="search-field" type="text" placeholder="search..." />
+                        </form>
+                    </li>
                 </ul>
+
             </div>
         </header>
 
         <div id="ajax-container">
-            {{{body}}}
+            <section class="gh-search-results container">
+                <ol id="results" class="post-list">
+                </ol>
+            </section>
+            <section class="main">
+                {{{body}}}
+            </section>
         </div>
     </div>
 
     <!-- <footer class="footer">
         <div class="container">
             <div class="site-title-wrapper">
-                <h1 class="site-title"><a class="js-ajax-link" title="{{@blog.title}}" href="{{@blog.url}}">{{@blog.title}}</a></h1>
+                <h1 class="site-title"><a class="js-ajax-link" title="{{@site.title}}" href="{{@site.url}}">{{@site.title}}</a></h1>
 
                 <a class="button-square button-jump-top js-jump-top" href="#"><i class="fa fa-angle-up"></i></a>
             </div>
@@ -69,16 +86,23 @@
     {{! Ghost outputs important scripts and data with this tag }}
     {{ghost_foot}}
 
+    <!--[if IE]>
+    <script type="text/javascript" src="{{asset "js/url-plyfill.min.js"}}"></script>
+    <![endif]-->
+
     <script type="text/javascript">
-    if (typeof jQuery == 'undefined') {
-        document.write('<script type="text/javascript" src="{{asset "js/jquery-1.11.3.min.js"}}"></'+'script>');
-    }
+        if (typeof jQuery == 'undefined') {
+            document.write('<script type="text/javascript" src="{{asset "js/jquery-1.11.3.min.js"}}"></' + 'script>');
+        }
     </script>
 
     <script type="text/javascript" src="{{asset "js/jquery.history.js"}}"></script>
+    <script type="text/javascript" src="{{asset "ghostHunter/dist/jquery.ghosthunter.js"}}"></script>
+    <script type="text/javascript" src="{{asset "js/Shortcode.js"}}"></script>
     <script type="text/javascript" src="{{asset "js/nprogress.js"}}"></script>
     <script type="text/javascript" src="{{asset "js/jquery.fitvids.js"}}"></script>
     <script type="text/javascript" src="{{asset "js/scripts.js"}}"></script>
 
 </body>
+
 </html>

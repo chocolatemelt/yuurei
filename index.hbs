@@ -1,31 +1,18 @@
 {{!< default}}
 
 <div id="latest-post" class="container">
-		<ol class="post-list">
+  <ol class="post-list">
     {{#foreach posts}}
-		{{!--
-        {{#if feature_image}}
-        <a class="js-ajax-link"  title="{{title}} | {{@blog.title}}" href="{{url}}">
-          <img class="index-featured-image" src="{{img_url feature_image}}">
-        </a>
-        {{/if}}
-		--}}
-				<li class="post-stub post">
-						<a class="js-ajax-link"  title="{{title}} | {{@blog.title}}" href="{{url}}">
-								<h4 class="post-stub-title">{{title}}</h4>
-								<time class="post-stub-date" datetime="{{published_at}}">Published {{date format="MMMM Do YYYY"}}</time>
-						</a>
-				</li>
+    <li class="post-stub post">
+      <a class="js-ajax-link" title="{{title}} | {{@site.title}}" href="{{url}}">
+        <h4 class="post-stub-title">{{title}}</h4>
+        <time class="post-stub-date" datetime="{{published_at}}">Published {{date format="MMMM Do YYYY"}}</time>
+      </a>
+    </li>
     {{/foreach}}
-		</ol>
-</div>
+  </ol>
 
-<div id="post-index" class="container">
-    <ol class="post-list">
-        {{> loop}}
-    </ol>
-
-    <div class="post-navigation">
-        {{pagination}}
-    </div>
+  <div class="post-navigation">
+    {{pagination}}
+  </div>
 </div>
