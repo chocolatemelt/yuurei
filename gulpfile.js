@@ -3,7 +3,7 @@
 const gulp = require("gulp");
 const autoprefixer = require("gulp-autoprefixer");
 const concat = require("gulp-concat");
-const csso = require("gulp-csso");
+const cleanCSS = require("gulp-clean-css");
 const del = require("del");
 const uglify = require("gulp-uglify");
 
@@ -16,7 +16,18 @@ function css(cb) {
     ])
     .pipe(concat("styles.min.css"))
     .pipe(autoprefixer())
-    .pipe(csso())
+    .pipe(
+      cleanCSS(
+        {
+          debug: true,
+          level: 2
+        },
+        details => {
+          console.log(`${details.name}: ${details.stats.originalSize}`);
+          console.log(`${details.name}: ${details.stats.minifiedSize}`);
+        }
+      )
+    )
     .pipe(gulp.dest("./assets/dist"));
   cb();
 }
