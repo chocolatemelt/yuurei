@@ -14,9 +14,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     {{! Styles }}
-    <link rel="stylesheet" type="text/css" href="{{asset "css/normalize.css"}}" />
-    <link rel="stylesheet" type="text/css" href="{{asset "css/nprogress.css"}}" />
-    <link rel="stylesheet" type="text/css" href="{{asset "css/style.css"}}" />
+    <link rel="stylesheet" type="text/css" href="{{asset "dist/styles.min.css"}}" />
     <link href="https://fonts.googleapis.com/css?family=Crimson+Text:400,400i|Playfair+Display" rel="stylesheet">
     <link rel="stylesheet" type="text/css"
         href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" />
@@ -90,18 +88,7 @@
     <script type="text/javascript" src="{{asset "js/url-plyfill.min.js"}}"></script>
     <![endif]-->
 
-    <script type="text/javascript">
-        if (typeof jQuery == 'undefined') {
-            document.write('<script type="text/javascript" src="{{asset "js/jquery-1.11.3.min.js"}}"></' + 'script>');
-        }
-    </script>
-
-    <script type="text/javascript" src="{{asset "js/jquery.history.js"}}"></script>
-    <script type="text/javascript" src="{{asset "ghostHunter/dist/jquery.ghosthunter.js"}}"></script>
-    <script type="text/javascript" src="{{asset "js/Shortcode.js"}}"></script>
-    <script type="text/javascript" src="{{asset "js/nprogress.js"}}"></script>
-    <script type="text/javascript" src="{{asset "js/jquery.fitvids.js"}}"></script>
-    <script type="text/javascript" src="{{asset "js/scripts.js"}}"></script>
+    <script type="text/javascript" src="{{asset "dist/scripts.min.js"}}"></script>
 
 </body>
 
