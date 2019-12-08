@@ -35,7 +35,7 @@ function css(cb) {
 function js(cb) {
   gulp
     .src([
-      "./assets/js/url-plyfill.min.js",
+      "./assets/js/url-polyfill.min.js",
       "./assets/js/jquery.history.js",
       "./assets/js/jquery.fitvids.js",
       "./assets/ghostHunter/dist/jquery.ghosthunter.js",
