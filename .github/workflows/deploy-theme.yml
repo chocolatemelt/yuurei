@@ -17,4 +17,4 @@ jobs:
         with:
           api-url: ${{ secrets.GHOST_ADMIN_API_URL }}
           api-key: ${{ secrets.GHOST_ADMIN_API_KEY }}
-          exclude: "gulpfile.js package-lock.json node_modules"
+          exclude: "gulpfile.js package-lock.json *node_modules/* *assets/css/* *assets/js/* *assets/ghostHunter/*"
