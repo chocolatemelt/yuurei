@@ -32,7 +32,6 @@ function js(cb) {
       "./assets/js/Shortcode.js",
       "./assets/js/scripts.js"
     ])
-    .pipe(concat("scripts.min.js"))
     .pipe(uglify())
     .pipe(gulp.dest("./assets/dist"));
   cb();
