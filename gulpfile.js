@@ -37,6 +37,7 @@ function js(cb) {
     .src([
       "./assets/js/jquery.history.js",
       "./assets/js/jquery.fitvids.js",
+      "./assets/ghostHunter/dist/jquery.ghosthunter.js",
       "./assets/js/nprogress.js",
       "./assets/js/Shortcode.js"
     ])
@@ -44,11 +45,7 @@ function js(cb) {
     .pipe(uglify())
     .pipe(gulp.dest("./assets/dist"));
   gulp
-    .src([
-      "./assets/js/url-polyfill.min.js",
-      "./assets/ghostHunter/dist/jquery.ghosthunter.js",
-      "./assets/js/scripts.js"
-    ])
+    .src(["./assets/js/url-polyfill.min.js", "./assets/js/scripts.js"])
     .pipe(uglify())
     .pipe(gulp.dest("./assets/dist"));
   cb();
