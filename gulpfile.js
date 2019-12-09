@@ -35,12 +35,18 @@ function css(cb) {
 function js(cb) {
   gulp
     .src([
-      "./assets/js/url-polyfill.min.js",
       "./assets/js/jquery.history.js",
       "./assets/js/jquery.fitvids.js",
-      "./assets/ghostHunter/dist/jquery.ghosthunter.js",
       "./assets/js/nprogress.js",
-      "./assets/js/Shortcode.js",
+      "./assets/js/Shortcode.js"
+    ])
+    .pipe(concat("plugins.js"))
+    .pipe(uglify())
+    .pipe(gulp.dest("./assets/dist"));
+  gulp
+    .src([
+      "./assets/js/url-polyfill.min.js",
+      "./assets/ghostHunter/dist/jquery.ghosthunter.js",
       "./assets/js/scripts.js"
     ])
     .pipe(uglify())
