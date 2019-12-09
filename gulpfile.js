@@ -46,7 +46,6 @@ function js(cb) {
     .pipe(gulp.dest("./assets/dist"));
   gulp
     .src(["./assets/js/url-polyfill.min.js"])
-    .pipe(uglify())
     .pipe(gulp.dest("./assets/dist"));
   cb();
 }
