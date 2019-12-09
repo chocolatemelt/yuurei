@@ -66,11 +66,8 @@
     <script type="text/javascript" src="{{asset "dist/url-polyfill.min.js"}}"></script>
     <![endif]-->
 
-    <script type="text/javascript">
-        if (typeof jQuery == 'undefined') {
-            document.write('<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></' + 'script>');
-        }
-    </script>
+    <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"
+        integrity="sha256-xNjb53/rY+WmG+4L6tTl9m6PpqknWZvRt0rO1SRnJzw=" crossorigin="anonymous"></script>
     <script type="text/javascript"
         src="https://cdnjs.cloudflare.com/ajax/libs/history.js/1.8/bundled/html4+html5/jquery.history.min.js"></script>
     <script type="text/javascript" src="{{asset "dist/scripts.js"}}"></script>

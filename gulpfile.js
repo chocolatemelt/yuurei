@@ -10,6 +10,7 @@ const uglify = require("gulp-uglify");
 function css(cb) {
   gulp
     .src([
+      "./assets/css/fonts.css",
       "./assets/css/normalize.css",
       "./assets/css/nprogress.css",
       "./assets/css/style.css"
