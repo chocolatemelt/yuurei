@@ -18,8 +18,7 @@ jQuery(function($) {
   /* ============================================================ */
   /* Ajax Loading */
   /* ============================================================ */
-  var HOOK_URL =
-    "https://discordapp.com/api/webhooks/652398044830236673/_TAeoWTQwqh6tJTKyI8bAwq8X6EsuJ-Vtik4Gk6g1PeQuthQMAfd664C2Wn1KD5xkCYK";
+
   var History = window.History;
   var loading = false;
   var $ajaxContainer = $("#ajax-container");
@@ -249,6 +248,8 @@ jQuery(function($) {
 
     NProgress.start();
 
+    // HOOK_URL provided by discord and should be in the Code Injection tab
+    // const HOOK_URL = "discord_hook_url"
     fetch(HOOK_URL, {
       method: "post",
       headers: {
