@@ -1166,7 +1166,7 @@ figure {
 .dl-px-smol {
   position: relative;
   display: inline-block;
-  width: 2em;
-  vertical-align: bottom;
-  top: 0.2em;
+  width: 1.5em;
+  /* vertical-align: bottom; */
+  /* top: 0.2em; */
 }
