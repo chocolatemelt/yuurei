@@ -1,4 +1,4 @@
-jQuery(function($) {
+jQuery(function ($) {
   /* ============================================================ */
   /* Responsive Videos */
   /* ============================================================ */
@@ -9,7 +9,7 @@ jQuery(function($) {
   /* Scroll To Top */
   /* ============================================================ */
 
-  $(".js-jump-top").on("click", function(e) {
+  $(".js-jump-top").on("click", function (e) {
     e.preventDefault();
 
     $("html, body").animate({ scrollTop: 0 });
@@ -29,12 +29,12 @@ jQuery(function($) {
     return false;
   }
 
-  History.Adapter.bind(window, "statechange", function() {
+  History.Adapter.bind(window, "statechange", function () {
     var State = History.getState();
 
     // Get the requested url and replace the current content
     // with the loaded content
-    $.get(State.url, function(result) {
+    $.get(State.url, function (result) {
       var $html = $(result);
       // replace content with shortcodes before inserting into dom
       shortcodes($("#ajax-container", $html));
@@ -45,7 +45,7 @@ jQuery(function($) {
 
       $("html, body").animate({ scrollTop: 0 });
 
-      $ajaxContainer.fadeOut(500, function() {
+      $ajaxContainer.fadeOut(500, function () {
         $latestPost = $newContent.filter("#latest-post");
 
         // Re run fitvid.js
@@ -58,7 +58,7 @@ jQuery(function($) {
 
         loading = false;
       });
-    }).fail(function() {
+    }).fail(function () {
       // Request fail
       NProgress.done();
       location.reload();
@@ -68,7 +68,7 @@ jQuery(function($) {
   $("body").on(
     "click",
     ".js-ajax-link, .pagination a, .post-tags a, .post-header a",
-    function(e) {
+    function (e) {
       e.preventDefault();
 
       // clear search
@@ -98,7 +98,7 @@ jQuery(function($) {
 
           NProgress.start();
 
-          $("#results").fadeOut(300, function() {
+          $("#results").fadeOut(300, function () {
             $(".main").fadeIn(300);
           });
 
@@ -114,18 +114,18 @@ jQuery(function($) {
     includebodysearch: true,
     info_template: "<p class='gh-info'>posts found: {{amount}}</p>",
     onKeyUp: true,
-    onComplete: function() {
+    onComplete: function () {
       if ($("#search-field").prop("value")) {
         $("html, body").animate({ scrollTop: 0 });
         NProgress.start();
-        $(".main").fadeOut(300, function() {
+        $(".main").fadeOut(300, function () {
           $("#results").fadeIn(300);
         });
         NProgress.done();
       } else {
         $("html, body").animate({ scrollTop: 0 });
         NProgress.start();
-        $("#results").fadeOut(300, function() {
+        $("#results").fadeOut(300, function () {
           $(".main").fadeIn(300);
         });
         NProgress.done();
@@ -133,7 +133,7 @@ jQuery(function($) {
     },
     results: "#results",
     result_template:
-      "<li class='post-stub gh-search-item' id='gh-{{ref}}'><a class='js-ajax-link' title='{{title}}' href='{{link}}'><h4 class='post-stub-title'>{{title}}</h4>&nbsp;<time class='post-stub-date'>Published {{pubDate}}</time></a></li>"
+      "<li class='post-stub gh-search-item' id='gh-{{ref}}'><a class='js-ajax-link' title='{{title}}' href='{{link}}'><h4 class='post-stub-title'>{{title}}</h4>&nbsp;<time class='post-stub-date'>Published {{pubDate}}</time></a></li>",
   });
 
   // add shortcodes here
@@ -146,7 +146,7 @@ jQuery(function($) {
     jeannedarc: "jeanned_arc",
     jeanne: "jeanned_arc",
     psiren: "pop_star_siren",
-    sakuya: "konohana_sakuya"
+    sakuya: "konohana_sakuya",
   };
 
   // cdn prefix
@@ -170,7 +170,7 @@ jQuery(function($) {
 
   function shortcodes(hook) {
     hook.shortcode({
-      wf: function() {
+      wf: function () {
         return this.options.special
           ? "<img src='" +
               cdn +
@@ -183,7 +183,7 @@ jQuery(function($) {
               nicknames(this.options.name) +
               ".gif'>";
       },
-      dl: function() {
+      dl: function () {
         // this is garbage lol
         if (this.options.adv) {
           return (
@@ -230,7 +230,7 @@ jQuery(function($) {
             ".png'>"
           );
         }
-      }
+      },
     });
   }
 
@@ -239,7 +239,7 @@ jQuery(function($) {
 
   // form handler
   $("#thanks").hide();
-  $("#contact-submit").on("click", function() {
+  $("#contact-submit").on("click", function () {
     var url = new URL(window.location.href);
     var title = url ? url.pathname.replace(/\//g, "") : undefined;
     var name = document.getElementById("contact-name").value;
@@ -253,7 +253,7 @@ jQuery(function($) {
     fetch(HOOK_URL, {
       method: "post",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         embeds: [
@@ -262,22 +262,22 @@ jQuery(function($) {
             fields: [
               {
                 name: "name",
-                value: name ? name : "anonymous"
+                value: name ? name : "anonymous",
               },
               {
                 name: "message",
-                value: msg
-              }
+                value: msg,
+              },
             ],
             footer: {
-              text: ret ? "from: " + ret : "no return details provided"
-            }
-          }
-        ]
-      })
+              text: ret ? "from: " + ret : "no return details provided",
+            },
+          },
+        ],
+      }),
     });
 
-    $("#contact-form").fadeOut(300, function() {
+    $("#contact-form").fadeOut(300, function () {
       $("#thanks").fadeIn(300);
     });
 

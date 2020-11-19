@@ -4,13 +4,13 @@
  * MIT Licensed
  * @license
  */
-(function($) {
+(function ($) {
   /* LUNR */
 
   /* LEVENSHTEIN */
 
   //This is the main plugin definition
-  $.fn.ghostHunter = function(options) {
+  $.fn.ghostHunter = function (options) {
     //Here we use jQuery's extend to set default values if they weren't set by the user
     var opts = $.extend({}, $.fn.ghostHunter.defaults, options);
     if (opts.results) {
@@ -37,10 +37,10 @@
     item_preprocessor: false,
     indexing_start: false,
     indexing_end: false,
-    includebodysearch: false
+    includebodysearch: false,
   };
   var timeout = null;
-  var prettyDate = function(date) {
+  var prettyDate = function (date) {
     var d = new Date(date);
     var monthNames = [
       "January",
@@ -54,12 +54,12 @@
       "September",
       "October",
       "November",
-      "December"
+      "December",
     ];
     return d.getDate() + " " + monthNames[d.getMonth()] + " " + d.getFullYear();
   };
 
-  var getSubpathKey = function(str) {
+  var getSubpathKey = function (str) {
     return str.replace(/^\//, "").replace(/\//g, "-");
   };
 
@@ -68,14 +68,14 @@
   // We add a prefix to new IDs and remove it after a set of
   // updates is complete, just in case a browser freaks over
   // duplicate IDs in the DOM.
-  var settleIDs = function() {
-    $(".gh-search-item").each(function() {
+  var settleIDs = function () {
+    $(".gh-search-item").each(function () {
       var oldAttr = this.getAttribute("id");
       var newAttr = oldAttr.replace(/^new-/, "");
       this.setAttribute("id", newAttr);
     });
   };
-  var updateSearchList = function(listItems, apiData, steps) {
+  var updateSearchList = function (listItems, apiData, steps) {
     for (var i = 0, ilen = steps.length; i < ilen; i++) {
       var step = steps[i];
       if (step[0] == "delete") {
@@ -100,18 +100,19 @@
     settleIDs();
   };
 
-  var grabAndIndex = function() {
+  var grabAndIndex = function () {
     // console.log('ghostHunter: grabAndIndex');
     this.blogData = {};
     this.latestPost = 0;
     var url =
-      "/ghost/api/v2/content/posts/?key=" +
+      ghost_root_url +
+      "/content/posts/?key=" +
       ghosthunter_key +
       "&limit=all&include=tags";
 
     var params = {
       limit: "all",
-      include: "tags"
+      include: "tags",
     };
     if (this.includebodysearch) {
       params.formats = ["plaintext"];
@@ -120,10 +121,10 @@
       params.formats = [""];
     }
     var me = this;
-    $.get(url).done(function(data) {
+    $.get(url).done(function (data) {
       var idxSrc = data.posts;
       // console.log("ghostHunter: indexing all posts")
-      me.index = lunr(function() {
+      me.index = lunr(function () {
         this.ref("id");
         this.field("title");
         this.field("description");
@@ -132,7 +133,7 @@
         }
         this.field("pubDate");
         this.field("tag");
-        idxSrc.forEach(function(arrayItem) {
+        idxSrc.forEach(function (arrayItem) {
           // console.log("start indexing an item: " + arrayItem.id);
           // Track the latest value of updated_at,  to stash in localStorage
           var itemDate = new Date(arrayItem.updated_at).getTime();
@@ -140,7 +141,7 @@
           if (itemDate > recordedDate) {
             me.latestPost = arrayItem.updated_at;
           }
-          var tag_arr = arrayItem.tags.map(function(v) {
+          var tag_arr = arrayItem.tags.map(function (v) {
             return v.name; // `tag` object has an `name` property which is the value of tag. If you also want other info, check API and get that property
           });
           if (arrayItem.meta_description == null) {
@@ -155,7 +156,7 @@
             title: String(arrayItem.title),
             description: String(arrayItem.custom_excerpt),
             pubDate: String(arrayItem.published_at),
-            tag: category
+            tag: category,
           };
           if (me.includebodysearch) {
             parsedData.plaintext = String(arrayItem.plaintext);
@@ -167,7 +168,7 @@
             description: arrayItem.custom_excerpt,
             pubDate: prettyDate(parsedData.pubDate),
             link: localUrl,
-            tags: tag_arr
+            tags: tag_arr,
           };
           // If there is a metadata "pre"-processor for the item, run it here.
           if (me.item_preprocessor) {
@@ -206,7 +207,7 @@
   var pluginMethods = {
     isInit: false,
 
-    init: function(target, opts) {
+    init: function (target, opts) {
       var that = this;
       that.target = target;
       Object.assign(this, opts);
@@ -217,12 +218,12 @@
         }
         window.setTimeout(miam, 1);
       } else {
-        target.focus(function() {
+        target.focus(function () {
           that.loadAPI();
         });
       }
 
-      target.closest("form").submit(function(e) {
+      target.closest("form").submit(function (e) {
         e.preventDefault();
         that.find(target.val());
       });
@@ -232,21 +233,21 @@
         // so we disable it in the search field. If enabled, some browsers
         // will save data to history (even when autocomplete="false"), which
         // is an intrusive headache, particularly on mobile.
-        target.keydown(function(event) {
+        target.keydown(function (event) {
           if (event.which === 13) {
             return false;
           }
         });
-        target.keyup(function(event) {
+        target.keyup(function (event) {
           clearTimeout(timeout);
-          timeout = setTimeout(function() {
+          timeout = setTimeout(function () {
             that.find(target.val());
           }, 500);
         });
       }
     },
 
-    loadAPI: function() {
+    loadAPI: function () {
       // console.log('ghostHunter: loadAPI');
       if (!this.isInit) {
         // console.log('ghostHunter: this.isInit is true');
@@ -285,11 +286,12 @@
             "updated_at:>'" +
             this.latestPost.replace(/\..*/, "").replace(/T/, " ") +
             "'",
-          fields: "id"
+          fields: "id",
         };
 
         var url =
-          "/ghost/api/v2/content/posts/?key=" +
+          ghost_root_url +
+          "/content/posts/?key=" +
           ghosthunter_key +
           "&limit=all&fields=id" +
           "&filter=" +
@@ -298,7 +300,7 @@
           "'";
 
         var me = this;
-        $.get(url).done(function(data) {
+        $.get(url).done(function (data) {
           if (data.posts.length > 0) {
             grabAndIndex.call(me);
           } else {
@@ -314,14 +316,14 @@
       }
     },
 
-    find: function(value) {
+    find: function (value) {
       clearTimeout(lastTimeoutID);
       if (!value) {
         value = "";
       }
       value = value.toLowerCase();
       lastTimeoutID = setTimeout(
-        function() {
+        function () {
           // Query strategy is lifted from comments on a lunr.js issue: https://github.com/olivernn/lunr.js/issues/256
           var thingsFound = [];
           // The query interface expects single terms, so we split.
@@ -331,26 +333,26 @@
             var v = valueSplit[i];
             if (!v) continue;
             thingsFound.push(
-              this.index.query(function(q) {
+              this.index.query(function (q) {
                 // For an explanation of lunr indexing options, see the lunr.js
                 // documentation at https://lunrjs.com/docs/lunr.Query.html#~Clause
 
                 // look for an exact match and apply a large positive boost
                 q.term(v, {
                   usePipeline: true,
-                  boost: 100
+                  boost: 100,
                 });
                 // look for terms that match the beginning of this queryTerm and apply a medium boost
                 q.term(v, {
                   usePipeline: false,
                   boost: 10,
-                  wildcard: lunr.Query.wildcard.TRAILING
+                  wildcard: lunr.Query.wildcard.TRAILING,
                 });
                 // look for terms that match with an edit distance of 1 and apply a small boost
                 q.term(v, {
                   usePipeline: false,
                   editDistance: 1,
-                  boost: 1
+                  boost: 1,
                 });
               })
             );
@@ -403,7 +405,7 @@
                 .eq(0)
                 .replaceWith(
                   this.format(this.info_template, {
-                    amount: searchResult.length
+                    amount: searchResult.length,
                   })
                 );
             } else {
@@ -431,7 +433,7 @@
           // Get an array of IDs present in current results
           var listItems = $(".gh-search-item");
           var currentRefs = listItems
-            .map(function() {
+            .map(function () {
               return this.id.slice(3);
             })
             .get();
@@ -461,16 +463,16 @@
       );
     },
 
-    clear: function() {
+    clear: function () {
       $(this.results).empty();
       this.target.val("");
     },
 
-    format: function(t, d) {
-      return t.replace(/{{([^{}]*)}}/g, function(a, b) {
+    format: function (t, d) {
+      return t.replace(/{{([^{}]*)}}/g, function (a, b) {
         var r = d[b];
         return typeof r === "string" || typeof r === "number" ? r : a;
       });
-    }
+    },
   };
 })(jQuery);

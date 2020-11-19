@@ -4,178 +4,177 @@
  * MIT Licensed
  * @license
  */
-(function($) {
-  var lunr = require("lunr")
-
-  // Adapted from https://github.com/pseudonym117/Levenshtein
-(function(root, factory) {
-  if (
-    typeof define == "function" &&
-    typeof define.amd == "object" &&
-    define.amd
-  ) {
-    define(function() {
-      return factory(root);
-    });
-  } else if (typeof module == "object" && module && module.exports) {
-    module.exports = factory(root);
-  } else {
-    root.Levenshtein = factory(root);
-  }
-})(this, function(root) {
-  function forEach(array, fn) {
-    var i, length;
-    i = -1;
-    length = array.length;
-    while (++i < length) fn(array[i], i, array);
-  }
-
-  function map(array, fn) {
-    var result;
-    result = Array(array.length);
-    forEach(array, function(val, i, array) {
-      result.push(fn(val, i, array));
-    });
-    return result;
-  }
-
-  function reduce(array, fn, accumulator) {
-    forEach(array, function(val, i, array) {
-      accumulator = fn(val, i, array);
-    });
-    return accumulator;
-  }
-
-  // For string mode
-  function getChar(str, idx) {
-    return str.charAt(idx);
-  }
-
-  // For array mode
-  function getArrayMember(arr, idx) {
-    return arr[idx];
-  }
-
-  // Levenshtein distance
-  function Levenshtein(str_m, str_n) {
-    var previous, current, matrix, getElem;
-    // Set to string or array mode
-    if (typeof str_m === "string" && typeof str_n === "string") {
-      getElem = getChar;
-    } else if (typeof str_m === "object" && typeof str_n === "object") {
-      getElem = getArrayMember;
-    } else {
-      throw "Levensthtein: input must be two strings or two arrays";
-    }
-    // Constructor
-    matrix = this._matrix = [];
-
-    // Sanity checks
-    if (str_m == str_n) return (this.distance = 0);
-    else if (str_m == "") return (this.distance = str_n.length);
-    else if (str_n == "") return (this.distance = str_m.length);
-    else {
-      // Danger Will Robinson
-      previous = [0];
-      forEach(str_m, function(v, i) {
-        i++, (previous[i] = i);
-      });
-
-      matrix[0] = previous;
-      forEach(str_n, function(n_val, n_idx) {
-        current = [++n_idx];
-        forEach(str_m, function(m_val, m_idx) {
-          m_idx++;
-          if (getElem(str_m, m_idx - 1) == getElem(str_n, n_idx - 1))
-            current[m_idx] = previous[m_idx - 1];
-          else
-            current[m_idx] = Math.min(
-              previous[m_idx] + 1, // Deletion
-              current[m_idx - 1] + 1, // Insertion
-              previous[m_idx - 1] + 1 // Subtraction
-            );
+(function ($) {
+  var lunr = require("lunr")(
+    // Adapted from https://github.com/pseudonym117/Levenshtein
+    function (root, factory) {
+      if (
+        typeof define == "function" &&
+        typeof define.amd == "object" &&
+        define.amd
+      ) {
+        define(function () {
+          return factory(root);
         });
-        previous = current;
-        matrix[matrix.length] = previous;
-      });
-
-      return (this.distance = current[current.length - 1]);
-    }
-  }
-
-  Levenshtein.prototype.toString = Levenshtein.prototype.inspect = function inspect(
-    no_print
-  ) {
-    var matrix, max, buff, sep, rows;
-    matrix = this.getMatrix();
-    max = reduce(
-      matrix,
-      function(m, o) {
-        return Math.max(m, reduce(o, Math.max, 0));
-      },
-      0
-    );
-    buff = Array((max + "").length).join(" ");
-
-    sep = [];
-    while (sep.length < ((matrix[0] && matrix[0].length) || 0))
-      sep[sep.length] = Array(buff.length + 1).join("-");
-    sep = sep.join("-+") + "-";
-
-    rows = map(matrix, function(row) {
-      var cells;
-      cells = map(row, function(cell) {
-        return (buff + cell).slice(-buff.length);
-      });
-      return cells.join(" |") + " ";
-    });
-
-    return rows.join("\n" + sep + "\n");
-  };
-
-  // steps to get from string 1 to string 2
-  Levenshtein.prototype.getSteps = function() {
-    var steps, matrix, x, y, u, l, d, min;
-    steps = [];
-    matrix = this.getMatrix();
-    x = matrix.length - 1;
-    y = matrix[0].length - 1;
-    while (x !== 0 || y !== 0) {
-      u = y > 0 ? matrix[x][y - 1] : Number.MAX_VALUE;
-      l = x > 0 ? matrix[x - 1][y] : Number.MAX_VALUE;
-      d = y > 0 && x > 0 ? matrix[x - 1][y - 1] : Number.MAX_VALUE;
-      min = Math.min(u, l, d);
-      if (min === d) {
-        if (d < matrix[x][y]) {
-          steps.push(["substitute", y, x]);
-        } //  else steps.push(['no-op', y, x])
-        x--;
-        y--;
-      } else if (min === l) {
-        steps.push(["insert", y, x]);
-        x--;
+      } else if (typeof module == "object" && module && module.exports) {
+        module.exports = factory(root);
       } else {
-        steps.push(["delete", y, x]);
-        y--;
+        root.Levenshtein = factory(root);
       }
     }
-    return steps;
-  };
+  )(this, function (root) {
+    function forEach(array, fn) {
+      var i, length;
+      i = -1;
+      length = array.length;
+      while (++i < length) fn(array[i], i, array);
+    }
 
-  Levenshtein.prototype.getMatrix = function() {
-    return this._matrix.slice();
-  };
+    function map(array, fn) {
+      var result;
+      result = Array(array.length);
+      forEach(array, function (val, i, array) {
+        result.push(fn(val, i, array));
+      });
+      return result;
+    }
 
-  Levenshtein.prototype.valueOf = function() {
-    return this.distance;
-  };
+    function reduce(array, fn, accumulator) {
+      forEach(array, function (val, i, array) {
+        accumulator = fn(val, i, array);
+      });
+      return accumulator;
+    }
 
-  return Levenshtein;
-});
+    // For string mode
+    function getChar(str, idx) {
+      return str.charAt(idx);
+    }
 
+    // For array mode
+    function getArrayMember(arr, idx) {
+      return arr[idx];
+    }
+
+    // Levenshtein distance
+    function Levenshtein(str_m, str_n) {
+      var previous, current, matrix, getElem;
+      // Set to string or array mode
+      if (typeof str_m === "string" && typeof str_n === "string") {
+        getElem = getChar;
+      } else if (typeof str_m === "object" && typeof str_n === "object") {
+        getElem = getArrayMember;
+      } else {
+        throw "Levensthtein: input must be two strings or two arrays";
+      }
+      // Constructor
+      matrix = this._matrix = [];
+
+      // Sanity checks
+      if (str_m == str_n) return (this.distance = 0);
+      else if (str_m == "") return (this.distance = str_n.length);
+      else if (str_n == "") return (this.distance = str_m.length);
+      else {
+        // Danger Will Robinson
+        previous = [0];
+        forEach(str_m, function (v, i) {
+          i++, (previous[i] = i);
+        });
+
+        matrix[0] = previous;
+        forEach(str_n, function (n_val, n_idx) {
+          current = [++n_idx];
+          forEach(str_m, function (m_val, m_idx) {
+            m_idx++;
+            if (getElem(str_m, m_idx - 1) == getElem(str_n, n_idx - 1))
+              current[m_idx] = previous[m_idx - 1];
+            else
+              current[m_idx] = Math.min(
+                previous[m_idx] + 1, // Deletion
+                current[m_idx - 1] + 1, // Insertion
+                previous[m_idx - 1] + 1 // Subtraction
+              );
+          });
+          previous = current;
+          matrix[matrix.length] = previous;
+        });
+
+        return (this.distance = current[current.length - 1]);
+      }
+    }
+
+    Levenshtein.prototype.toString = Levenshtein.prototype.inspect = function inspect(
+      no_print
+    ) {
+      var matrix, max, buff, sep, rows;
+      matrix = this.getMatrix();
+      max = reduce(
+        matrix,
+        function (m, o) {
+          return Math.max(m, reduce(o, Math.max, 0));
+        },
+        0
+      );
+      buff = Array((max + "").length).join(" ");
+
+      sep = [];
+      while (sep.length < ((matrix[0] && matrix[0].length) || 0))
+        sep[sep.length] = Array(buff.length + 1).join("-");
+      sep = sep.join("-+") + "-";
+
+      rows = map(matrix, function (row) {
+        var cells;
+        cells = map(row, function (cell) {
+          return (buff + cell).slice(-buff.length);
+        });
+        return cells.join(" |") + " ";
+      });
+
+      return rows.join("\n" + sep + "\n");
+    };
+
+    // steps to get from string 1 to string 2
+    Levenshtein.prototype.getSteps = function () {
+      var steps, matrix, x, y, u, l, d, min;
+      steps = [];
+      matrix = this.getMatrix();
+      x = matrix.length - 1;
+      y = matrix[0].length - 1;
+      while (x !== 0 || y !== 0) {
+        u = y > 0 ? matrix[x][y - 1] : Number.MAX_VALUE;
+        l = x > 0 ? matrix[x - 1][y] : Number.MAX_VALUE;
+        d = y > 0 && x > 0 ? matrix[x - 1][y - 1] : Number.MAX_VALUE;
+        min = Math.min(u, l, d);
+        if (min === d) {
+          if (d < matrix[x][y]) {
+            steps.push(["substitute", y, x]);
+          } //  else steps.push(['no-op', y, x])
+          x--;
+          y--;
+        } else if (min === l) {
+          steps.push(["insert", y, x]);
+          x--;
+        } else {
+          steps.push(["delete", y, x]);
+          y--;
+        }
+      }
+      return steps;
+    };
+
+    Levenshtein.prototype.getMatrix = function () {
+      return this._matrix.slice();
+    };
+
+    Levenshtein.prototype.valueOf = function () {
+      return this.distance;
+    };
+
+    return Levenshtein;
+  });
 
   //This is the main plugin definition
-  $.fn.ghostHunter = function(options) {
+  $.fn.ghostHunter = function (options) {
     //Here we use jQuery's extend to set default values if they weren't set by the user
     var opts = $.extend({}, $.fn.ghostHunter.defaults, options);
     if (opts.results) {
@@ -202,10 +201,10 @@
     item_preprocessor: false,
     indexing_start: false,
     indexing_end: false,
-    includebodysearch: false
+    includebodysearch: false,
   };
   var timeout = null;
-  var prettyDate = function(date) {
+  var prettyDate = function (date) {
     var d = new Date(date);
     var monthNames = [
       "January",
@@ -219,12 +218,12 @@
       "September",
       "October",
       "November",
-      "December"
+      "December",
     ];
     return d.getDate() + " " + monthNames[d.getMonth()] + " " + d.getFullYear();
   };
 
-  var getSubpathKey = function(str) {
+  var getSubpathKey = function (str) {
     return str.replace(/^\//, "").replace(/\//g, "-");
   };
 
@@ -233,14 +232,14 @@
   // We add a prefix to new IDs and remove it after a set of
   // updates is complete, just in case a browser freaks over
   // duplicate IDs in the DOM.
-  var settleIDs = function() {
-    $(".gh-search-item").each(function() {
+  var settleIDs = function () {
+    $(".gh-search-item").each(function () {
       var oldAttr = this.getAttribute("id");
       var newAttr = oldAttr.replace(/^new-/, "");
       this.setAttribute("id", newAttr);
     });
   };
-  var updateSearchList = function(listItems, apiData, steps) {
+  var updateSearchList = function (listItems, apiData, steps) {
     for (var i = 0, ilen = steps.length; i < ilen; i++) {
       var step = steps[i];
       if (step[0] == "delete") {
@@ -265,18 +264,19 @@
     settleIDs();
   };
 
-  var grabAndIndex = function() {
+  var grabAndIndex = function () {
     // console.log('ghostHunter: grabAndIndex');
     this.blogData = {};
     this.latestPost = 0;
     var url =
-      "/ghost/api/v2/content/posts/?key=" +
+      ghost_root_url +
+      "/content/posts/?key=" +
       ghosthunter_key +
       "&limit=all&include=tags";
 
     var params = {
       limit: "all",
-      include: "tags"
+      include: "tags",
     };
     if (this.includebodysearch) {
       params.formats = ["plaintext"];
@@ -285,10 +285,10 @@
       params.formats = [""];
     }
     var me = this;
-    $.get(url).done(function(data) {
+    $.get(url).done(function (data) {
       var idxSrc = data.posts;
       // console.log("ghostHunter: indexing all posts")
-      me.index = lunr(function() {
+      me.index = lunr(function () {
         this.ref("id");
         this.field("title");
         this.field("description");
@@ -297,7 +297,7 @@
         }
         this.field("pubDate");
         this.field("tag");
-        idxSrc.forEach(function(arrayItem) {
+        idxSrc.forEach(function (arrayItem) {
           // console.log("start indexing an item: " + arrayItem.id);
           // Track the latest value of updated_at,  to stash in localStorage
           var itemDate = new Date(arrayItem.updated_at).getTime();
@@ -305,7 +305,7 @@
           if (itemDate > recordedDate) {
             me.latestPost = arrayItem.updated_at;
           }
-          var tag_arr = arrayItem.tags.map(function(v) {
+          var tag_arr = arrayItem.tags.map(function (v) {
             return v.name; // `tag` object has an `name` property which is the value of tag. If you also want other info, check API and get that property
           });
           if (arrayItem.meta_description == null) {
@@ -320,7 +320,7 @@
             title: String(arrayItem.title),
             description: String(arrayItem.custom_excerpt),
             pubDate: String(arrayItem.published_at),
-            tag: category
+            tag: category,
           };
           if (me.includebodysearch) {
             parsedData.plaintext = String(arrayItem.plaintext);
@@ -332,7 +332,7 @@
             description: arrayItem.custom_excerpt,
             pubDate: prettyDate(parsedData.pubDate),
             link: localUrl,
-            tags: tag_arr
+            tags: tag_arr,
           };
           // If there is a metadata "pre"-processor for the item, run it here.
           if (me.item_preprocessor) {
@@ -371,7 +371,7 @@
   var pluginMethods = {
     isInit: false,
 
-    init: function(target, opts) {
+    init: function (target, opts) {
       var that = this;
       that.target = target;
       Object.assign(this, opts);
@@ -382,12 +382,12 @@
         }
         window.setTimeout(miam, 1);
       } else {
-        target.focus(function() {
+        target.focus(function () {
           that.loadAPI();
         });
       }
 
-      target.closest("form").submit(function(e) {
+      target.closest("form").submit(function (e) {
         e.preventDefault();
         that.find(target.val());
       });
@@ -397,21 +397,21 @@
         // so we disable it in the search field. If enabled, some browsers
         // will save data to history (even when autocomplete="false"), which
         // is an intrusive headache, particularly on mobile.
-        target.keydown(function(event) {
+        target.keydown(function (event) {
           if (event.which === 13) {
             return false;
           }
         });
-        target.keyup(function(event) {
+        target.keyup(function (event) {
           clearTimeout(timeout);
-          timeout = setTimeout(function() {
+          timeout = setTimeout(function () {
             that.find(target.val());
           }, 500);
         });
       }
     },
 
-    loadAPI: function() {
+    loadAPI: function () {
       // console.log('ghostHunter: loadAPI');
       if (!this.isInit) {
         // console.log('ghostHunter: this.isInit is true');
@@ -450,11 +450,12 @@
             "updated_at:>'" +
             this.latestPost.replace(/\..*/, "").replace(/T/, " ") +
             "'",
-          fields: "id"
+          fields: "id",
         };
 
         var url =
-          "/ghost/api/v2/content/posts/?key=" +
+          ghost_root_url +
+          "/content/posts/?key=" +
           ghosthunter_key +
           "&limit=all&fields=id" +
           "&filter=" +
@@ -463,7 +464,7 @@
           "'";
 
         var me = this;
-        $.get(url).done(function(data) {
+        $.get(url).done(function (data) {
           if (data.posts.length > 0) {
             grabAndIndex.call(me);
           } else {
@@ -479,14 +480,14 @@
       }
     },
 
-    find: function(value) {
+    find: function (value) {
       clearTimeout(lastTimeoutID);
       if (!value) {
         value = "";
       }
       value = value.toLowerCase();
       lastTimeoutID = setTimeout(
-        function() {
+        function () {
           // Query strategy is lifted from comments on a lunr.js issue: https://github.com/olivernn/lunr.js/issues/256
           var thingsFound = [];
           // The query interface expects single terms, so we split.
@@ -496,26 +497,26 @@
             var v = valueSplit[i];
             if (!v) continue;
             thingsFound.push(
-              this.index.query(function(q) {
+              this.index.query(function (q) {
                 // For an explanation of lunr indexing options, see the lunr.js
                 // documentation at https://lunrjs.com/docs/lunr.Query.html#~Clause
 
                 // look for an exact match and apply a large positive boost
                 q.term(v, {
                   usePipeline: true,
-                  boost: 100
+                  boost: 100,
                 });
                 // look for terms that match the beginning of this queryTerm and apply a medium boost
                 q.term(v, {
                   usePipeline: false,
                   boost: 10,
-                  wildcard: lunr.Query.wildcard.TRAILING
+                  wildcard: lunr.Query.wildcard.TRAILING,
                 });
                 // look for terms that match with an edit distance of 1 and apply a small boost
                 q.term(v, {
                   usePipeline: false,
                   editDistance: 1,
-                  boost: 1
+                  boost: 1,
                 });
               })
             );
@@ -568,7 +569,7 @@
                 .eq(0)
                 .replaceWith(
                   this.format(this.info_template, {
-                    amount: searchResult.length
+                    amount: searchResult.length,
                   })
                 );
             } else {
@@ -596,7 +597,7 @@
           // Get an array of IDs present in current results
           var listItems = $(".gh-search-item");
           var currentRefs = listItems
-            .map(function() {
+            .map(function () {
               return this.id.slice(3);
             })
             .get();
@@ -626,16 +627,16 @@
       );
     },
 
-    clear: function() {
+    clear: function () {
       $(this.results).empty();
       this.target.val("");
     },
 
-    format: function(t, d) {
-      return t.replace(/{{([^{}]*)}}/g, function(a, b) {
+    format: function (t, d) {
+      return t.replace(/{{([^{}]*)}}/g, function (a, b) {
         var r = d[b];
         return typeof r === "string" || typeof r === "number" ? r : a;
       });
-    }
+    },
   };
 })(jQuery);

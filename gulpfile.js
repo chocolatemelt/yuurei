@@ -13,7 +13,7 @@ function css(cb) {
       "./assets/css/fonts.css",
       "./assets/css/normalize.css",
       "./assets/css/nprogress.css",
-      "./assets/css/style.css"
+      "./assets/css/style.css",
     ])
     .pipe(concat("styles.min.css"))
     .pipe(autoprefixer())
@@ -21,9 +21,9 @@ function css(cb) {
       cleanCSS(
         {
           debug: true,
-          level: 2
+          level: 2,
         },
-        details => {
+        (details) => {
           console.log(`${details.name}: ${details.stats.originalSize}`);
           console.log(`${details.name}: ${details.stats.minifiedSize}`);
         }
@@ -40,7 +40,7 @@ function js(cb) {
       "./assets/ghostHunter/dist/jquery.ghosthunter.js",
       "./assets/js/nprogress.js",
       "./assets/js/Shortcode.js",
-      "./assets/js/scripts.js"
+      "./assets/js/scripts.js",
     ])
     .pipe(concat("scripts.js"))
     .pipe(uglify())
@@ -60,5 +60,5 @@ exports = Object.assign(exports, {
   css,
   js,
   clean,
-  default: gulp.series(clean, gulp.parallel(css, js))
+  default: gulp.series(clean, gulp.parallel(css, js)),
 });
