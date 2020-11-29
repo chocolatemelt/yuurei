@@ -870,12 +870,6 @@ figure {
 /* ============================================================ */
 /* Ghost 2.0 Migration */
 /* ============================================================ */
-.kg-image {
-  max-width: 100%;
-  margin-top: 20px;
-  margin-bottom: 20px;
-}
-
 .kg-width-wide img {
   max-width: 85vw;
 }
@@ -962,7 +956,7 @@ figure {
 .kg-image {
   display: block;
   max-width: 100%;
-  margin: 0 auto;
+  margin: 20px auto;
 }
 
 .kg-card figcaption {
