@@ -872,6 +872,8 @@ figure {
 /* ============================================================ */
 .kg-image {
   max-width: 100%;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 .kg-width-wide img {
