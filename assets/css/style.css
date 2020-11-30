@@ -953,10 +953,15 @@ figure {
   min-width: 100%;
 }
 
+.kg-image-card {
+  margin-top: 35px;
+  margin-bottom: 35px;
+}
+
 .kg-image {
   display: block;
   max-width: 100%;
-  margin: 20px auto;
+  margin: 0 auto;
 }
 
 .kg-card figcaption {
